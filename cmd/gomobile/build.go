@@ -271,11 +271,6 @@ func addBuildFlagsNVXWork(cmd *command) {
 	cmd.flag.BoolVar(&buildWork, "work", false, "")
 }
 
-type binInfo struct {
-	hasPkgApp bool
-	hasPkgAL  bool
-}
-
 func init() {
 	addBuildFlags(cmdBuild)
 	addBuildFlagsNVXWork(cmdBuild)
@@ -354,10 +349,11 @@ func goModTidyAt(at string, env []string) error {
 // parseBuildTarget parses buildTarget into 1 or more platforms and architectures.
 // Returns an error if buildTarget contains invalid input.
 // Example valid target strings:
-//    android
-//    android/arm64,android/386,android/amd64
-//    ios,iossimulator,maccatalyst
-//    macos/amd64
+//
+//	android
+//	android/arm64,android/386,android/amd64
+//	ios,iossimulator,maccatalyst
+//	macos/amd64
 func parseBuildTarget(buildTarget string) ([]targetInfo, error) {
 	if buildTarget == "" {
 		return nil, fmt.Errorf(`invalid target ""`)
